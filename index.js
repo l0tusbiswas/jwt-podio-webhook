@@ -7,7 +7,7 @@ app.use(bodyParser.json());
 
 const PODIO_WEBHOOK_URL = "https://workflow-automation.podio.com/catch/725u5fz7gkv185t";
 
-app.post("/webhook", async (req, res) => {
+app.post("/webhook/call", async (req, res) => {
   try {
     const { token } = req.body;
     if (!token) {
@@ -27,6 +27,7 @@ app.post("/webhook", async (req, res) => {
       state: payload.state,
       direction: payload.direction,
       contact: payload.contact,
+      target_phone: payload.target?.phone || null,
       recording_url: payload.recording_url || null
     };
 
