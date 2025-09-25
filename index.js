@@ -9,13 +9,13 @@ const PODIO_WEBHOOK_URL = "https://workflow-automation.podio.com/catch/725u5fz7g
 
 app.post("/webhook/call", async (req, res) => {
   try {
-    const { token } = req.body;
-    if (!token) {
+    const { data } = req.body;
+    if (!data) {
       return res.status(400).json({ error: "JWT token is required" });
     }
 
     // decode JWT
-    const decoded = jwt.decode(token, { complete: true });
+    const decoded = jwt.decode(data, { complete: true });
     if (!decoded || !decoded.payload) {
       return res.status(400).json({ error: "Invalid JWT" });
     }
